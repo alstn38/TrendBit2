@@ -9,7 +9,8 @@ import SwiftUI
 
 struct TrendFavoriteCoinCardView: View {
     
-    let coin: FavoriteCoinEntity
+    @Binding var coin: FavoriteCoinEntity
+    
     private var coinColor: Color {
         if coin.change > 0 {
             return .red
@@ -23,14 +24,30 @@ struct TrendFavoriteCoinCardView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 12) {
-                Image(systemName: coin.iconName)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 40, height: 40)
-                    .foregroundColor(.orange)
-                    .padding(8)
-                    .background(Color.white)
-                    .clipShape(Circle())
+                AsyncImage(url: URL(string: coin.iconName)) { phase in
+                    switch phase {
+                    case .empty:
+                        ProgressView()
+                            .frame(width: 40, height: 40)
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 40, height: 40)
+                    case .failure:
+                        Image(systemName: "photo")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 40, height: 40)
+                            .foregroundColor(.secondary)
+                    @unknown default:
+                        EmptyView()
+                            .frame(width: 40, height: 40)
+                    }
+                }
+                .padding(8)
+                .background(Color.white)
+                .clipShape(Circle())
 
                 VStack(alignment: .leading, spacing: 4) {
                     Text(coin.name)

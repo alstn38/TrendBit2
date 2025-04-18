@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RankCoinRowView: View {
     
-    let coin: RankedCoinEntity
+    @Binding var coin: RankedCoinEntity
     
     private var coinColor: Color {
         if coin.change > 0 {
@@ -27,10 +27,27 @@ struct RankCoinRowView: View {
                 .textStyle(font: .title3, weight: .bold)
                 .frame(width: 24, alignment: .leading)
             
-            Image(systemName: coin.iconName)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 28, height: 28)
+            AsyncImage(url: URL(string: coin.iconName)) { phase in
+                switch phase {
+                case .empty:
+                    ProgressView()
+                        .frame(width: 28, height: 28)
+                case .success(let image):
+                    image
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 28, height: 28)
+                case .failure:
+                    Image(systemName: "photo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 28, height: 28)
+                        .foregroundColor(.secondary)
+                @unknown default:
+                    EmptyView()
+                        .frame(width: 28, height: 28)
+                }
+            }
             
             VStack(alignment: .leading, spacing: 2) {
                 Text(coin.name)
@@ -53,8 +70,4 @@ struct RankCoinRowView: View {
         }
         .padding(.vertical, 12)
     }
-}
-
-#Preview {
-    RankCoinRowView(coin: sampleTopCoins.first!)
 }

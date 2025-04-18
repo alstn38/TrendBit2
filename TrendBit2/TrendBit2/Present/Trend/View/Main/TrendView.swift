@@ -9,6 +9,8 @@ import SwiftUI
 
 struct TrendView: View {
     
+    @StateObject private var viewModel = TrendViewModel()
+    
     private let gridRows: [GridItem] = Array(
         repeating: GridItem(.fixed(60), spacing: 0),
         count: 3
@@ -23,8 +25,8 @@ struct TrendView: View {
                     SectionHeaderView("My Favorite")
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 16) {
-                            ForEach(sampleFavorites) { coin in
-                                TrendFavoriteCoinCardView(coin: coin)
+                            ForEach($viewModel.output.favoriteCoins) { $coin in
+                                TrendFavoriteCoinCardView(coin: $coin)
                             }
                         }
                         .padding(.horizontal, 16)
@@ -34,8 +36,8 @@ struct TrendView: View {
                     SectionHeaderView("Top15 Coin")
                     ScrollView(.horizontal, showsIndicators: false) {
                         LazyHGrid(rows: gridRows, alignment: .top, spacing: 0) {
-                            ForEach(sampleTopCoins) { coin in
-                                RankCoinRowView(coin: coin)
+                            ForEach($viewModel.output.rankedCoins) { $coin in
+                                RankCoinRowView(coin: $coin)
                                     .frame(width: 300)
                                     .padding(.horizontal)
                             }
@@ -48,8 +50,8 @@ struct TrendView: View {
                     SectionHeaderView("Top7 NFT")
                     ScrollView(.horizontal, showsIndicators: false) {
                         LazyHGrid(rows: gridRows, alignment: .top, spacing: 0) {
-                            ForEach(sampleTopCoins) { coin in
-                                RankCoinRowView(coin: coin)
+                            ForEach($viewModel.output.rankedNFTs) { $coin in
+                                RankCoinRowView(coin: $coin)
                                     .frame(width: 300)
                                     .padding(.horizontal)
                             }
@@ -67,10 +69,9 @@ struct TrendView: View {
                     ProfileAvatarView()
                 }
             }
+            .onAppear {
+                viewModel.input.onAppear.send(())
+            }
         }
     }
-}
-
-#Preview {
-    TrendView()
 }

@@ -30,3 +30,16 @@ struct SearchCoinDetail: Decodable {
         case large
     }
 }
+
+extension SearchCoinDetail {
+    
+    func toEntity() -> CoinSearchItem {
+        return CoinSearchItem(
+            id: id,
+            name: self.name,
+            ticker: self.symbol.uppercased(),
+            iconName: self.thumb,
+            isFavorite: FavoriteCoinStorage.shared.isFavorite(coinID: self.id)
+        )
+    }
+}

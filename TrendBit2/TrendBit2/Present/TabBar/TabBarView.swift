@@ -17,10 +17,7 @@ struct TabBarView: View {
                 .tabItem { Image(systemName: "magnifyingglass") }
 
             FavoriteView()
-                .tabItem { Image(systemName: "heart") }
-
-            ChartView()
-                .tabItem { Image(systemName: "person.crop.circle") }
+                .tabItem { Image(systemName: "star") }
         }
         .tint(.point)
     }

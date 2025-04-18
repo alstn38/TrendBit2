@@ -119,6 +119,7 @@ extension TrendInfoDTO {
     func toCoinRankEntities() -> [RankedCoinEntity] {
         return coins.prefix(15).enumerated().map { index, coin in
             RankedCoinEntity(
+                id: coin.item.id,
                 rank: index + 1,
                 name: coin.item.name,
                 ticker: coin.item.symbol.uppercased(),
@@ -132,6 +133,7 @@ extension TrendInfoDTO {
     func toNFTRankEntities() -> [RankedCoinEntity] {
         return nfts.prefix(7).enumerated().map { index, nft in
             RankedCoinEntity(
+                id: nft.id,
                 rank: index + 1,
                 name: nft.name,
                 ticker: nft.symbol.uppercased(),

@@ -74,6 +74,7 @@ extension CoinDetailDTO {
     
     func toFavoriteEntity() -> FavoriteCoinEntity {
         return FavoriteCoinEntity(
+            id: id,
             name: name,
             ticker: symbol.uppercased(),
             price: NumberFormatterManager.shared.pointNumberString(from: currentPrice),

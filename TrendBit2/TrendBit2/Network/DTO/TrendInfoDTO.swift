@@ -113,3 +113,32 @@ struct TrendingNFTData: Decodable {
         case sparkline
     }
 }
+
+extension TrendInfoDTO {
+    
+    func toCoinRankEntities() -> [RankedCoinEntity] {
+        return coins.prefix(15).enumerated().map { index, coin in
+            RankedCoinEntity(
+                rank: index + 1,
+                name: coin.item.name,
+                ticker: coin.item.symbol.uppercased(),
+                price: NumberFormatterManager.shared.pointNumberString(from: coin.item.data.price),
+                change: coin.item.data.priceChangePercentage24H.krw,
+                iconName: coin.item.thumb
+            )
+        }
+    }
+
+    func toNFTRankEntities() -> [RankedCoinEntity] {
+        return nfts.prefix(7).enumerated().map { index, nft in
+            RankedCoinEntity(
+                rank: index + 1,
+                name: nft.name,
+                ticker: nft.symbol.uppercased(),
+                price: nft.data.floorPrice,
+                change: nft.floorPrice24HPercentageChange,
+                iconName: nft.thumb
+            )
+        }
+    }
+}

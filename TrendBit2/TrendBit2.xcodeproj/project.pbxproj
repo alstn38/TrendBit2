@@ -10,9 +10,22 @@
 		F17528C42DB20B6900B030BB /* TrendBit2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrendBit2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		F1BF8A692DB24DDA00EF3625 /* Exceptions for "TrendBit2" folder in "TrendBit2" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Resource/Info.plist,
+			);
+			target = F17528C32DB20B6900B030BB /* TrendBit2 */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		F17528C62DB20B6900B030BB /* TrendBit2 */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				F1BF8A692DB24DDA00EF3625 /* Exceptions for "TrendBit2" folder in "TrendBit2" target */,
+			);
 			path = TrendBit2;
 			sourceTree = "<group>";
 		};
@@ -127,6 +140,8 @@
 /* Begin XCBuildConfiguration section */
 		F17528CD2DB20B6B00B030BB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = F17528C62DB20B6900B030BB /* TrendBit2 */;
+			baseConfigurationReferenceRelativePath = Resource/APIKey.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -191,6 +206,8 @@
 		};
 		F17528CE2DB20B6B00B030BB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = F17528C62DB20B6900B030BB /* TrendBit2 */;
+			baseConfigurationReferenceRelativePath = Resource/APIKey.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -256,6 +273,7 @@
 				DEVELOPMENT_TEAM = 5YM44C4YT8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TrendBit2/Resource/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -290,6 +308,7 @@
 				DEVELOPMENT_TEAM = 5YM44C4YT8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TrendBit2/Resource/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

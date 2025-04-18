@@ -24,7 +24,7 @@ struct TrendView: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 16) {
                             ForEach(sampleFavorites) { coin in
-                                FavoriteCoinCardView(coin: coin)
+                                TrendFavoriteCoinCardView(coin: coin)
                             }
                         }
                         .padding(.horizontal, 16)

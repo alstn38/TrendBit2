@@ -1,5 +1,5 @@
 //
-//  FavoriteCoinCardView.swift
+//  TrendFavoriteCoinCardView.swift
 //  TrendBit2
 //
 //  Created by 강민수 on 4/18/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FavoriteCoinCardView: View {
+struct TrendFavoriteCoinCardView: View {
     
     let coin: FavoriteCoinEntity
     private var coinColor: Color {

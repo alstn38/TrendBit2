@@ -9,16 +9,19 @@ import SwiftUI
 
 struct SearchView: View {
     
-    @State private var query: String = ""
-    @State private var searchItems = sampleSearchItems
+    @StateObject private var viewModel = SearchViewModel()
     
     var body: some View {
         NavigationStack {
             List {
-                ForEach($searchItems.filter { itemBinding in
-                    query.isEmpty || itemBinding.wrappedValue.name.localizedCaseInsensitiveContains(query)
-                }, id: \.id) { $item in
-                    CoinSearchRowView(item: $item, keyword: query)
+                ForEach($viewModel.output.searchResults) { $item in
+                    CoinSearchRowView(
+                        item: $item,
+                        keyword: $viewModel.input.query,
+                        toggleFavorite: { id in
+                            viewModel.input.toggleFavorite.send(id)
+                        }
+                    )
                 }
             }
             .listStyle(.plain)
@@ -29,9 +32,9 @@ struct SearchView: View {
                     ProfileAvatarView()
                 }
             }
-            .searchable(text: $query, prompt: "Search coins...")
+            .searchable(text: $viewModel.input.query, prompt: "Search coins")
             .onSubmit(of: .search) {
-                print("검색내용: \(query)")
+                viewModel.input.searchSubmitted.send(())
             }
         }
     }

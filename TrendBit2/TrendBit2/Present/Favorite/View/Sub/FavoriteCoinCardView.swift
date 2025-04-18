@@ -9,7 +9,8 @@ import SwiftUI
 
 struct FavoriteCoinCardView: View {
     
-    let coin: FavoriteCoinEntity
+    @Binding var coin: FavoriteCoinEntity
+    
     private var coinColor: Color {
         if coin.change > 0 {
             return .red
@@ -23,11 +24,27 @@ struct FavoriteCoinCardView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 8) {
-                Image(systemName: coin.iconName)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 28, height: 28)
-                    .foregroundColor(.orange)
+                AsyncImage(url: URL(string: coin.iconName)) { phase in
+                    switch phase {
+                    case .empty:
+                        ProgressView()
+                            .frame(width: 28, height: 28)
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 28, height: 28)
+                    case .failure:
+                        Image(systemName: "photo")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 28, height: 28)
+                            .foregroundColor(.secondary)
+                    @unknown default:
+                        EmptyView()
+                            .frame(width: 28, height: 28)
+                    }
+                }
 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(coin.name)

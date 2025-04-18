@@ -9,8 +9,9 @@ import SwiftUI
 
 struct FavoriteView: View {
     
-    let columns = [GridItem(.flexible()), GridItem(.flexible())]
-
+    @StateObject private var viewModel = FavoriteViewModel()
+    private let columns = [GridItem(.flexible()), GridItem(.flexible())]
+    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -18,10 +19,10 @@ struct FavoriteView: View {
                     Text("Favorite Coin")
                         .textStyle(font: .largeTitle, weight: .bold)
                         .padding(.horizontal, 16)
-
+                    
                     LazyVGrid(columns: columns, spacing: 20) {
-                        ForEach(sampleFavorites) { coin in
-                            FavoriteCoinCardView(coin: coin)
+                        ForEach($viewModel.output.favoriteCoins) { $coin in
+                            FavoriteCoinCardView(coin: $coin)
                         }
                     }
                     .padding(.horizontal, 16)
@@ -35,10 +36,9 @@ struct FavoriteView: View {
                     ProfileAvatarView()
                 }
             }
+            .onAppear {
+                viewModel.input.onAppear.send(())
+            }
         }
     }
-}
-
-#Preview {
-    FavoriteView()
 }

@@ -58,7 +58,7 @@ struct RankCoinRowView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             
             VStack(alignment: .trailing, spacing: 2) {
-                Text(coin.price)
+                Text("＄\(coin.price)")
                     .textStyle(font: .headline, weight: .semibold)
                 Text(String(format: "%+.2f%%", coin.change))
                     .textStyle(

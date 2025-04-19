@@ -57,7 +57,7 @@ struct TrendFavoriteCoinCardView: View {
                 }
             }
 
-            Text(coin.price)
+            Text("₩\(coin.price)")
                 .textStyle(font: .title3, weight: .semibold)
             
             Text(String(format: "%+.2f%%", coin.change))

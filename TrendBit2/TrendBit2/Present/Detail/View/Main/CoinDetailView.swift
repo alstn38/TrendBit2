@@ -9,33 +9,40 @@ import SwiftUI
 
 struct CoinDetailView: View {
     
-    let coin: CoinDetailEntity
-    
-    @State private var isFavorite = false
+    @StateObject private var viewModel = CoinDetailViewModel()
+    let id: String
 
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
-                    DetailHeaderView(coin: coin)
-                    CoinMetricGridView(coin: coin)
-                    CoinChartView(coin: coin)
-
-                    Text(coin.lastUpdated)
-                        .textStyle(font: .footnote, color: .secondary)
-                        .frame(maxWidth: .infinity, alignment: .trailing)
+                    if let coin = viewModel.output.coinDetail {
+                        DetailHeaderView(coin: coin)
+                        CoinMetricGridView(coin: coin)
+                        CoinChartView(coin: coin)
+                        
+                        Text(coin.lastUpdated)
+                            .textStyle(font: .footnote, color: .secondary)
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                        
+                    } else {
+                        ProgressView()
+                    }
                 }
                 .padding()
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        isFavorite.toggle()
+                        viewModel.input.toggleFavorite.send(())
                     } label: {
-                        Image(systemName: isFavorite ? "star.fill" : "star")
+                        Image(systemName: viewModel.output.coinDetail?.isFavorite ?? false ? "star.fill" : "star")
                             .foregroundColor(.point)
                     }
                 }
+            }
+            .onAppear {
+                viewModel.input.onAppear.send(id)
             }
         }
     }

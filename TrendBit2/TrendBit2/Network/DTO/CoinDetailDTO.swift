@@ -82,4 +82,41 @@ extension CoinDetailDTO {
             iconName: image
         )
     }
+    
+    func toCoinDetailEntity() -> CoinDetailEntity {
+        return CoinDetailEntity(
+            id: id,
+            name: name,
+            iconName: image,
+            price: formattedPrice(currentPrice),
+            change: priceChangePercentage24H ?? 0.0,
+            high: formattedPrice(high24H),
+            low: formattedPrice(low24H),
+            recordHigh: formattedPrice(ath),
+            recordLow: formattedPrice(atl),
+            changePrices: sparklineIn7D.price,
+            lastUpdated: detailAllTheTimeString(dateString: lastUpdated),
+            isFavorite: FavoriteCoinStorage.shared.isFavorite(coinID: id)
+        )
+    }
+    
+    private func formattedPrice(_ value: Double?) -> String {
+        guard let value else { return "정보 없음" }
+        return "₩" + NumberFormatterManager.shared.pointNumberString(from: value)
+    }
+    
+    private func detailAllTheTimeString(dateString: String) -> String {
+        let isoFormatter = ISO8601DateFormatter()
+        isoFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+
+        guard let date = isoFormatter.date(from: dateString) else {
+            return "업데이트 시간 알 수 없음"
+        }
+
+        let displayFormatter = DateFormatter()
+        displayFormatter.dateFormat = "M/d HH:mm:ss"
+        displayFormatter.locale = Locale(identifier: "ko_KR")
+
+        return displayFormatter.string(from: date) + " 업데이트"
+    }
 }

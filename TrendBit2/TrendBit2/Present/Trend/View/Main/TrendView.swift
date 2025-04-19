@@ -22,11 +22,17 @@ struct TrendView: View {
                 VStack(alignment: .leading, spacing: 32) {
 
                     /// My Favorite
-                    SectionHeaderView("My Favorite")
+                    if viewModel.output.favoriteCoins.count >= 2 {
+                        SectionHeaderView("My Favorite")
+                    }
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 16) {
                             ForEach($viewModel.output.favoriteCoins) { $coin in
-                                TrendFavoriteCoinCardView(coin: $coin)
+                                NavigationLink {
+                                    CoinDetailView(id: coin.id)
+                                } label: {
+                                    TrendFavoriteCoinCardView(coin: $coin)
+                                }
                             }
                         }
                         .padding(.horizontal, 16)
@@ -37,9 +43,13 @@ struct TrendView: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         LazyHGrid(rows: gridRows, alignment: .top, spacing: 0) {
                             ForEach($viewModel.output.rankedCoins) { $coin in
-                                RankCoinRowView(coin: $coin)
-                                    .frame(width: 300)
-                                    .padding(.horizontal)
+                                NavigationLink {
+                                    CoinDetailView(id: coin.id)
+                                } label: {
+                                    RankCoinRowView(coin: $coin)
+                                        .frame(width: 300)
+                                        .padding(.horizontal)
+                                }
                             }
                         }
                         .padding(.horizontal, 16)
@@ -51,9 +61,13 @@ struct TrendView: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         LazyHGrid(rows: gridRows, alignment: .top, spacing: 0) {
                             ForEach($viewModel.output.rankedNFTs) { $coin in
-                                RankCoinRowView(coin: $coin)
-                                    .frame(width: 300)
-                                    .padding(.horizontal)
+                                NavigationLink {
+                                    CoinDetailView(id: coin.id)
+                                } label: {
+                                    RankCoinRowView(coin: $coin)
+                                        .frame(width: 300)
+                                        .padding(.horizontal)
+                                }
                             }
                         }
                         .padding(.horizontal, 16)

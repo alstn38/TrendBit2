@@ -49,7 +49,3 @@ struct CoinChartView: View {
         .frame(height: 300)
     }
 }
-
-#Preview {
-    CoinChartView(coin: sampleDetail)
-}

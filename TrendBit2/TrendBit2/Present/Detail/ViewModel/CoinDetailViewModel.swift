@@ -69,7 +69,8 @@ final class CoinDetailViewModel: ViewModelType {
     
     private func toggleFavorite() {
         guard let coinID = output.coinDetail?.id else { return }
-        FavoriteCoinStorage.shared.toggleFavorite(for: coinID)
+        let result = FavoriteCoinStorage.shared.toggleFavorite(for: coinID)
+        guard result != .failFavorite else { return }
         output.coinDetail?.isFavorite.toggle()
     }
 }

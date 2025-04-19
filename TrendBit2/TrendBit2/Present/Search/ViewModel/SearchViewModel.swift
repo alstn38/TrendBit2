@@ -62,8 +62,9 @@ final class SearchViewModel: ViewModelType {
     }
     
     private func toggleFavorite(for id: String) {
-        print(id)
-        FavoriteCoinStorage.shared.toggleFavorite(for: id)
+        let result = FavoriteCoinStorage.shared.toggleFavorite(for: id)
+        guard result != .failFavorite else { return }
+        
         if let index = output.searchResults.firstIndex(where: { $0.id == id }) {
             output.searchResults[index].isFavorite.toggle()
         }

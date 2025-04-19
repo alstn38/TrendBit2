@@ -10,6 +10,7 @@ import SwiftUI
 struct DetailHeaderView: View {
     
     let coin: CoinDetailEntity
+    
     private var coinColor: Color {
         if coin.change > 0 {
             return .red
@@ -23,10 +24,27 @@ struct DetailHeaderView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
-                Image(systemName: coin.iconName)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 28, height: 28)
+                AsyncImage(url: URL(string: coin.iconName)) { phase in
+                    switch phase {
+                    case .empty:
+                        ProgressView()
+                            .frame(width: 28, height: 28)
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 28, height: 28)
+                    case .failure:
+                        Image(systemName: "photo")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 28, height: 28)
+                            .foregroundColor(.secondary)
+                    @unknown default:
+                        EmptyView()
+                            .frame(width: 28, height: 28)
+                    }
+                }
 
                 Text(coin.name)
                     .textStyle(font: .title, weight: .bold)

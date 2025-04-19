@@ -57,7 +57,7 @@ struct FavoriteCoinCardView: View {
             HStack {
                 Spacer()
                 Text("₩\(coin.price)")
-                    .textStyle(font: .title3, weight: .bold)
+                    .textStyle(font: .headline, weight: .bold)
             }
             .padding(.top, 20)
             

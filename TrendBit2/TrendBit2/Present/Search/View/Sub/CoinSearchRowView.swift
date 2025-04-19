@@ -50,6 +50,7 @@ struct CoinSearchRowView: View {
                     .foregroundColor(.point)
                     .imageScale(.large)
             }
+            .buttonStyle(.plain)
         }
     }
 }

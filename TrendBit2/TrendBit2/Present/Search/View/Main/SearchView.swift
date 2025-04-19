@@ -15,13 +15,17 @@ struct SearchView: View {
         NavigationStack {
             List {
                 ForEach($viewModel.output.searchResults) { $item in
-                    CoinSearchRowView(
-                        item: $item,
-                        keyword: $viewModel.input.query,
-                        toggleFavorite: { id in
-                            viewModel.input.toggleFavorite.send(id)
-                        }
-                    )
+                    NavigationLink {
+                        CoinDetailView(id: item.id)
+                    } label: {
+                        CoinSearchRowView(
+                            item: $item,
+                            keyword: $viewModel.input.query,
+                            toggleFavorite: { id in
+                                viewModel.input.toggleFavorite.send(id)
+                            }
+                        )
+                    }
                 }
             }
             .listStyle(.plain)
@@ -38,8 +42,4 @@ struct SearchView: View {
             }
         }
     }
-}
-
-#Preview {
-    SearchView()
 }

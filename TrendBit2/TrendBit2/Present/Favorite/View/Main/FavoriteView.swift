@@ -22,7 +22,11 @@ struct FavoriteView: View {
                     
                     LazyVGrid(columns: columns, spacing: 20) {
                         ForEach($viewModel.output.favoriteCoins) { $coin in
-                            FavoriteCoinCardView(coin: $coin)
+                            NavigationLink {
+                                CoinDetailView(id: coin.id)
+                            } label: {
+                                FavoriteCoinCardView(coin: $coin)
+                            }
                         }
                     }
                     .padding(.horizontal, 16)

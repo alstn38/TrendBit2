@@ -1,7 +1,7 @@
 # 🚀 TrendBit2 – 코인 트렌드를 한눈에, Trend₿it2💰(with: SwiftUI)
 
 - TrendBit2는 **UIKit으로 만들었던 코인 트렌드 앱을 SwiftUI 기반으로 연습한 버전입니다.**
-- SwiftUI, MVVM, Combine을 활용해 실시간 코인 정보와 차트를 깔끔하게 제공합니다.
+- SwiftUI, MVVM, Combine을 활용해 실시간 코인 정보와 차트를 제공합니다.
 
 <br>
 
